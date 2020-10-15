@@ -2,10 +2,14 @@ export default {
   inject: ['rootMenu'],
   computed: {
     indexPath() {
-      console.log('mixin',this)
       const path = [this.index];
       let parent = this.$parent;
-      while (parent.$options.componentName !== 'ElMenu') {
+      console.log(parent.$options.componentName)
+      console.log("parent",parent)
+
+
+      while (parent.$options.componentName !== 'YrMenu') {
+        console.log("parent",parent)
         if (parent.index) {
           path.unshift(parent.index);
         }
