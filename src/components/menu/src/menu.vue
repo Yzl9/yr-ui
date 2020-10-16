@@ -16,7 +16,11 @@ export default {
     Bus.$on("submenu-click", this.handleSubmenuClick);
   },
   render(h) {
-    const component = <ul role="menubar">{this.$slots.default}</ul>;
+    const component = (
+      <ul role="menubar" class={{ "yr-menu": true }}>
+        {this.$slots.default}
+      </ul>
+    );
     return component;
   },
   data() {
@@ -81,4 +85,13 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.yr-menu {
+  border-right: solid 1px #e6e6e6;
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
+  background-color: #fff;
+}
+</style>

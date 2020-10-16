@@ -43,7 +43,7 @@ export default {
       <el-collapse-transition>
         <ul
           role="menu"
-          class="el-menu el-menu--inline"
+          class=" el-menu--inline"
           v-show={opened}
           style={{ backgroundColor: rootMenu.backgroundColor || "" }}
         >

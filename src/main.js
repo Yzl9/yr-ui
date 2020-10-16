@@ -10,9 +10,11 @@ Vue.use(ElementUI);
 
 import  YrMenu from '@/components/menu'
 import  YrSubMenu from '@/components/sub-menu'
+import  YrMenuItem from '@/components/menu-item'
 const  components  = [
   YrMenu,
   YrSubMenu,
+  YrMenuItem
 ]
 
 components.forEach(item => {

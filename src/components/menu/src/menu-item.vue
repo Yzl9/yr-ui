@@ -1,9 +1,17 @@
 <template>
-  <div></div>
+  <li>
+    <slot></slot>
+  </li>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "YrMenuItem"
+};
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.li {
+  height: 50px;
+}
+</style>
