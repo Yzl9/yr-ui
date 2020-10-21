@@ -14,6 +14,8 @@
         <yr-menu-item>home</yr-menu-item>
       </yr-sub-menu>
     </yr-menu>
+
+    
     <div style="height:200px"></div>
     <el-col :span="12">
       <el-menu :span="12">

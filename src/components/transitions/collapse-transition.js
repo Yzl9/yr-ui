@@ -3,6 +3,7 @@ import { addClass, removeClass } from '@/utils/dom';
 class Transition {
   beforeEnter(el) {
     addClass(el, 'collapse-transition');
+    console.log('el',el)
     if (!el.dataset) el.dataset = {};
     el.dataset.oldPaddingTop = el.style.paddingTop;
     el.dataset.oldPaddingBottom = el.style.paddingBottom;
@@ -66,6 +67,7 @@ export default {
   name: 'ElCollapseTransition',
   functional: true,
   render(h, { children }) {
+    console.log('child',children)
     const data = {
       on: new Transition()
     };
