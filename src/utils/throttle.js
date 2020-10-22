@@ -41,6 +41,7 @@ export default function(delay, noTrailing, callback, debounceMode) {
   }
 
   // `noTrailing` defaults to falsy.
+  console.log('dd',typeof noTrailing,noTrailing,callback)
   if (typeof noTrailing !== "boolean") {
     debounceMode = callback;
     callback = noTrailing;
@@ -102,6 +103,7 @@ export default function(delay, noTrailing, callback, debounceMode) {
        * If `debounceMode` is false (at end), schedule `callback` to
        * execute after `delay` ms.
        */
+      console.log('de',debounceMode)
       timeoutID = setTimeout(
         debounceMode ? clear : exec,
         debounceMode === undefined ? delay - elapsed : delay

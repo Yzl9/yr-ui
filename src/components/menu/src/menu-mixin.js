@@ -6,8 +6,6 @@ export default {
       let parent = this.$parent;
       console.log(parent.$options.componentName)
       console.log("parent",parent)
-
-
       while (parent.$options.componentName !== 'YrMenu') {
         console.log("parent",parent)
         if (parent.index) {
