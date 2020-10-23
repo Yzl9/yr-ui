@@ -1,10 +1,9 @@
-export default function(delay,callback){
-  let _this = this
-  let _arg = arguments
+export default function(delay, callback) {
+  let _this = this;
 
-  let timeoutID = null
+  let timeoutID = null;
 
-  let lastExtc = 0
+  let lastExtc = 0;
 
   function clearExistingTimeout() {
     if (timeoutID) {
@@ -12,29 +11,28 @@ export default function(delay,callback){
     }
   }
 
-  return function(){
+  return function() {
+    let _arg = arguments;
     //  elapsed 离上次节流出发时间多久
-    let elapsed = Date.now()-lastExtc
-    console.log('elapssed',elapsed)
+    let elapsed = Date.now() - lastExtc;
+    console.log("elapssed", elapsed);
 
     // 运行回调 并记录这次回调时间
-    function exec(){
-      lastExtc = Date.now()
-      callback.apply(_this,_arg)
+    function exec() {
+      lastExtc = Date.now();
+      callback.apply(_this, _arg);
     }
     function clear() {
       timeoutID = undefined;
     }
-    clearExistingTimeout()
+    clearExistingTimeout();
     //  离上次节流事假运行时间，如果大于 delay 运行callback
-    if(elapsed>delay){
-    //运行callback
-     exec()
+    if (elapsed > delay) {
+      //运行callback
+      exec();
     } else {
-      console.log('ss',delay-elapsed)
       // 如果小于，则减去已经过去的时间，而剩下的时间就是将要等待的时间
-      timeoutID = setTimeout(exec,delay-elapsed)
+      timeoutID = setTimeout(exec, delay - elapsed);
     }
-
-  }
+  };
 }
