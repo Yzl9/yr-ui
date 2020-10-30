@@ -1,7 +1,12 @@
 <template>
-  <yr-carousel :interval="1000" :initial-index="0">
-    <yr-carousel-item v-for="(item, index) in imgList" :key="index">
+  <yr-carousel :interval="4000" :initial-index="0">
+    <yr-carousel-item
+      :index="index"
+      v-for="(item, index) in imgList"
+      :key="index"
+    >
       <img :src="item.img" alt="" />
+      <div slot="c">ss</div>
     </yr-carousel-item>
   </yr-carousel>
 </template>

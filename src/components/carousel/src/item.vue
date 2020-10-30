@@ -1,23 +1,20 @@
 <template>
-  <div
-    v-show="ready"
-    class="el-carousel__item"
-    :class="{
-      'is-active': active,
-      'el-carousel__item--card': $parent.type === 'card',
-      'is-in-stage': inStage,
-      'is-hover': hover,
-      'is-animating': animating
-    }"
-    @click="handleItemClick"
-    :style="itemStyle"
-  >
+  <div class="banner-item">
     <div
-      v-if="$parent.type === 'card'"
-      v-show="!active"
-      class="el-carousel__mask"
-    ></div>
-    <slot></slot>
+      v-show="ready"
+      class="el-carousel__item"
+      :class="{
+        'is-active': active,
+        'is-in-stage': inStage,
+        'is-hover': hover
+      }"
+      @click="handleItemClick"
+    >
+      <slot></slot>
+    </div>
+    <div class="a" :class="[active ? 'c-is-active' : 'c']">
+      <slot name="c"></slot>
+    </div>
   </div>
 </template>
 
@@ -31,7 +28,8 @@ export default {
     label: {
       type: [String, Number],
       default: ""
-    }
+    },
+    index: [Number]
   },
   data() {
     return {
@@ -73,15 +71,16 @@ export default {
       const distance = this.$parent.$el[
         isVertical ? "offsetHeight" : "offsetWidth"
       ];
+      console.log(
+        "distance * (index - activeIndex)",
+        distance * (index - activeIndex)
+      );
       return distance * (index - activeIndex);
     },
     translateItem(index, activeIndex, oldIndex) {
-      const parentType = this.$parent.type;
-      const parentDirection = this.parentDirection;
-      const length = this.$parent.items.length;
-      if (parentType !== "card" && oldIndex !== undefined) {
-        this.animating = index === activeIndex || index === oldIndex;
-      }
+      const parentType = this.$parent.type; // car or default
+      const parentDirection = this.parentDirection; // horizontal vertital
+      const length = this.$parent.items.length; // long
       if (index !== activeIndex && length > 2 && this.$parent.loop) {
         index = this.processIndex(index, activeIndex, length);
       }
@@ -113,15 +112,6 @@ export default {
   computed: {
     parentDirection() {
       return this.$parent.direction;
-    },
-    itemStyle() {
-      const translateType =
-        this.parentDirection === "vertical" ? "translateY" : "translateX";
-      const value = `${translateType}(${this.translate}px) scale(${this.scale})`;
-      const style = {
-        transform: value
-      };
-      return autoprefixer(style);
     }
   },
   created() {
@@ -132,3 +122,40 @@ export default {
   }
 };
 </script>
+<style lang="stylus">
+.banner-item {
+}
+
+.el-carousel__item {
+  opacity: 0;
+  transition: all 2s;
+}
+
+.is-active {
+  opacity: 1;
+  transition: all 2s;
+}
+
+.a {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  color: blue;
+  font-size: 100px;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.c {
+  opacity: 0;
+}
+
+.c-is-active {
+  top: 40%;
+  opacity: 1;
+  transition: all 2s;
+}
+</style>

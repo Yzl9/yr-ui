@@ -32,7 +32,9 @@
           <i class="el-icon-arrow-right"></i>
         </button>
       </transition>
-      <slot></slot>
+      <div>
+        <slot></slot>
+      </div>
     </div>
     <ul v-if="indicatorPosition !== 'none'" :class="indicatorsClasses">
       <li
