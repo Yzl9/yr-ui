@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    let data = [{
+      label:'1',
+      child:[{
+        label:'1-1'
+      },{
+        label:'1-2',
+        children:[{
+          label:'1-2-1'
+        }]
+      }]
+    },{
+      label:'2'
+    }]
+   
+  function forData(node,prop){
+    let props = node.store.props
+    let data = node.data
+    let confing = props[prop]
+
+    if(typeof config ==='string'){
+      return data[config]
+    }
+   }
+  
+  class Node{
+      constructor(options){
+        for(let option in options){
+          if(Object.prototype.hasOwnProperty.call(options,option)){
+            this[option] =  options[option]
+          }
+        }
+        this.level = 0
+        this.parent = null
+        this.childNodes = []
+        if(this.parent){
+          this.level = this.parent.level +1
+        }
+        console.log(this)
+        this.setData(this.data)
+      }
+      setData(data){
+          let children ;
+          if(this.level ===0&&Array.isArray(data)){
+            children = this.data
+          }else{
+            children = forData(this,'children')||[]
+          }
+
+          for(let i=0;i<children.length;i++){
+            this.insertChild({data:children[i]})
+          }
+      }
+      getChildren(forceInit = false){
+        console.log('this',this)
+        if(this.level===0) return this.data;
+        if(!this.data)return null;
+        return this.data['children']
+      }
+      insertChild(child,index,batch){
+        if(!child) throw new Error('inserChild error:child is required');
+        if(!(child instanceof Node)){
+          if(!batch){
+            const children = this.getChildren()
+            console.log('children',children,child.data)
+            if(children.indexOf(child.data)===-1){
+              if(typeof index === 'underfined' ||index<0)  {
+                children.push(child.data)
+              }  else {
+                children.splice(index,0,child.data)
+              }
+            }
+          }
+          this.objectAssign(child,{
+            parent:this,
+            store:this.store
+          })
+          child  = new Node(child)
+        }
+        child.level  = this.level+1
+        this.childNodes.push(child)
+     }
+      objectAssign(target){
+      for (let i = 1, j = arguments.length; i < j; i++) {
+        let source = arguments[i] || {};
+        for (let prop in source) {
+          if (Object.prototype.hasOwnProperty.call(source,prop) ) {
+            let value = source[prop];
+            if (value !== undefined) {
+              target[prop] = value;
+            }
+          }
+        }
+      }
+      return target;
+    }
+  }
+
+  class TreeStore{
+    constructor(options){
+      for(let option in options){
+        if(Object.prototype.hasOwnProperty.call(options,option)){
+          this[option] =options[option]
+        }
+      }
+      this.props = {
+        children:'children'
+      }
+      this.root = new Node({
+        data:this.data,
+        store:this
+      })
+    }
+  }
+
+ 
+    let root =new TreeStore({
+      data
+    })
+  </script>
+  
+</body>
+</html>

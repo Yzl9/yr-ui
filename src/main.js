@@ -13,12 +13,16 @@ import  YrSubMenu from '@/components/sub-menu'
 import  YrMenuItem from '@/components/menu-item'
 import  YrCarousel from '@/components/carousel'
 import  YrCarouselItem from '@/components/carousel-item'
+import  YrTree from '@/components/tree'
+import  YTree from '@/components/YrTree/index.js'
 const  components  = [
   YrMenu,
   YrSubMenu,
   YrMenuItem,
   YrCarousel,
-  YrCarouselItem
+  YrCarouselItem,
+  YrTree,
+  YTree
 ]
 
 components.forEach(item => {
