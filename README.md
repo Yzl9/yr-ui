@@ -48,9 +48,6 @@
     },
   }
 //...
-
-
-
 ```
 
 上面代码中list 存放了所有的tab-pane组件，并用 v-for 渲染了label 属性
@@ -91,7 +88,6 @@
       })
     },
 ...
-
 ```
 
 为了确保所有组件挂载完成，你可以在tab-pane 组件挂在时 调用 tabs 的 initData()
@@ -134,7 +130,6 @@ tabs 的 initData 方法
 tab.vue
 
 ```
-
 <script setup lang="ts">
 
 ...
@@ -149,13 +144,11 @@ provide('setChildrenInstance', setChildrenInstance)
 
 ...
 </script>
-
 ```
 
 tab-pane.vue
 
 ```
-
 <script setup lang="ts">
 
 ...
@@ -176,3 +169,28 @@ onMounted(() => {
 ### 详情请自行查看tabs下的文件
 
 https://github.com/Yzl9/yr-ui/tree/master/src/components/table
+
+
+
+事实上我估计 element-plus 内部也是差不多是这样，
+
+```
+...
+const pane = reactive({
+  uid: instance.uid,
+  slots,
+  props,
+  paneName,
+  active,
+  index,
+  isClosable,
+})
+
+onMounted(() => {
+  tabsRoot.registerPane(pane)
+})
+
+...
+```
+
+我没看里面代码太复杂了 有兴趣的请自行探索   https://github.com/element-plus/element-plus/blob/dev/packages/components/tabs/src/tab-pane.vue
